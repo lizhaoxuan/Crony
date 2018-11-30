@@ -129,21 +129,21 @@ push字符串到测试机剪切板
 #!/usr/bin/env bash
 ##############################################################################
 ##
-##  friend tool zhaoxuan.li@163.com
+## friend tool zhaoxuan.li@163.com
 ##  
-##  ./friend -h     帮助信息
-##	./friend -c 
-##  ./friend -clip           获取手机剪切板内容，并粘贴到mac剪切板
-##	./friend -pc  [你要push的内容]   
-##	./friend -putclip        push字符串到手机剪切板
-##  ./friend -a 
-##  ./friend -activity       获取当前展示的activity名称
-##	./friend -i
-##	./friend -info           获取设备信息（usreId,deviceId,versionCode,Gitsah）
-##	./friend -i u            获取User Id
-##	./friend -i d            获取DeviceId
-##	./friend -i v            获取VersionCode
-##	./friend -i g            获取Gitsha
+## ./friend -h     帮助信息
+## ./friend -c 
+## ./friend -clip           获取手机剪切板内容，并粘贴到mac剪切板
+## ./friend -pc  [你要push的内容]   
+## ./friend -putclip        push字符串到手机剪切板
+## ./friend -a 
+## ./friend -activity       获取当前展示的activity名称
+## ./friend -i
+## ./friend -info           获取设备信息（usreId,deviceId,versionCode,Gitsah）
+## ./friend -i u            获取User Id
+## ./friend -i d            获取DeviceId
+## ./friend -i v            获取VersionCode
+## ./friend -i g            获取Gitsha
 ##
 ##
 ##
