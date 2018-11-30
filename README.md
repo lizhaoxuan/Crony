@@ -16,6 +16,8 @@ FriendTools 是一个shell脚本， 初衷皆在于通过你简单的脚本命�
 
 ## Friend Tools Usage
 
+暂仅支持Mac
+
 在 app 目录的build.gradle添加：
 
 	dependencies {
