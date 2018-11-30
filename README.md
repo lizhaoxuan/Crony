@@ -1,6 +1,6 @@
 # Crony - FriendsTool
 
-Crony - FriendTools 是一个shell脚本， 初衷皆在于通过你简单的脚本命令，帮助你快速简单的解决和测试机的信息交换问题。
+Crony - FriendTools 是一个shell脚本， 初衷皆在于通过你简单的脚本命令，帮助你快速简单的解决开发过程中和测试机的信息交换问题。
 ## 前言
 
 如果你在日常开发中遇到过以下问题，那FriendTools一定是你的好朋友。
