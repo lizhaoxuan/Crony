@@ -19,7 +19,7 @@ FriendTools 是一个shell脚本， 初衷皆在于通过你简单的脚本命�
 在 app 目录的build.gradle添加：
 
 	dependencies {
-	    compile 'com.github.zhaoxuan:1.0.0'
+	    compile 'com.github.zhaoxuan:1.0.1'
 	}
 
 实现 IGetInfo 接口
