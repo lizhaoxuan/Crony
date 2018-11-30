@@ -1,0 +1,198 @@
+#!/usr/bin/env bash
+##############################################################################
+##
+##  friend tool zhaoxuan.li@163.com
+##  
+##  ./friend -h     帮助信息
+##	./friend -c 
+##  ./friend -clip           获取手机剪切板内容，并粘贴到mac剪切板
+##	./friend -pc  [你要push的内容]   
+##	./friend -putclip        push字符串到手机剪切板
+##  ./friend -a 
+##  ./friend -activity       获取当前展示的activity名称
+##	./friend -i
+##	./friend -info           获取设备信息（usreId,deviceId,versionCode,Gitsah）
+##	./friend -i u            获取User Id
+##	./friend -i d            获取DeviceId
+##	./friend -i v            获取VersionCode
+##	./friend -i g            获取Gitsha
+##
+##
+##
+##############################################################################
+
+
+
+getClipboard(){
+	result=`adb shell am broadcast -a com.zhaoxuan.crony.action_clipboard`
+	processGetClipboardResult $result
+}
+
+processGetClipboardResult(){
+	index=1
+	resultCode=0
+	resultContent=""
+	for arg in "$@"
+	do
+		if [[ $index == 11 ]]; then
+			resultCode=$arg
+		elif [[ $index == 12 ]]; then
+	    	resultContent=$arg
+    	elif [[ $index -gt 12 ]]; then
+    	resultContent=''$resultContent' '$arg''
+		fi
+	   let index+=1
+	done
+
+	length=${#resultContent}
+	resultContent=${resultContent:0:$length-1}
+
+	if [[ $resultCode == 1 ]]; then
+		echo $resultContent | pbcopy
+		echo $resultContent
+	else
+		echo ""
+	fi
+}
+
+putClipboard(){
+	if [ ! $1 ]; then
+	echo "ERROR: you must be input param"
+	else
+	result=`adb shell am broadcast -a com.zhaoxuan.crony.action_clipboard_put -e content $1`
+	processPutClipboardResult $result
+	fi
+}
+
+processPutClipboardResult(){
+	resultCode=${13}
+
+	if [[ $resultCode == 1 ]]; then
+		echo "Copy success!"
+	else
+		echo "ERROR:Copy error!!! errorCode: $resultCode"
+	fi
+}
+
+getTopActivity(){
+	result=`adb shell am broadcast -a com.zhaoxuan.crony.action_activity`
+	processGetTopActivity $result
+}
+
+processGetTopActivity(){
+	index=1
+	resultCode=0
+	resultContent=""
+	for arg in "$@"
+	do
+		if [[ $index == 11 ]]; then
+			resultCode=$arg
+		elif [[ $index == 12 ]]; then
+	    	resultContent=$arg
+    	elif [[ $index -gt 12 ]]; then
+    	resultContent=''$resultContent' '$arg''
+		fi
+	   let index+=1
+	done
+
+	length=${#resultContent}
+	resultContent=${resultContent:0:$length-1}
+
+	if [[ $resultCode == 1 ]]; then
+		echo $resultContent
+	elif [[ $resultCode == 2 ]]; then
+    	echo "ERROR:you don't register IGetInfo!!!"
+	else
+		echo "ERROR:getInfo error!!! errorCode: $resultCode"
+	fi
+}
+
+getInfo(){
+	if [ ! $1 ]; then
+	result=`adb shell am broadcast -a com.zhaoxuan.crony.action_info -e key default`
+	processGetInfo $result
+	else
+	result=`adb shell am broadcast -a com.zhaoxuan.crony.action_info -e key $1`
+	processGetInfo $result
+	fi
+}
+
+processGetInfo(){
+	index=1
+	resultCode=0
+	resultContent=""
+	for arg in "$@"
+	do
+		if [[ $index == 13 ]]; then
+			resultCode=$arg
+		elif [[ $index == 14 ]]; then
+	    	resultContent=$arg
+    	elif [[ $index -gt 14 ]]; then
+    	resultContent=''$resultContent' '$arg''
+		fi
+	   let index+=1
+	done
+
+	length=${#resultContent}
+	resultContent=${resultContent:0:$length-1}
+
+	if [[ $resultCode == 1 ]]; then
+		echo $resultContent
+	elif [[ $resultCode == 2 ]]; then
+    	echo "ERROR:you don't register IGetInfo!!!"
+	else
+		echo "resultCode: $resultCode  resultContent:$resultContent"
+	fi
+}
+
+help(){
+	echo "Your Friend version 1.0.0"
+	echo "global options:"
+	echo "	-h 			help tip"
+	echo "	-c     		"
+	echo "	-clip 			Gets the device clipboard content,and paste into the MAC clipboard"
+	echo "	-pc    	 [your content]"
+	echo "	-putclip [your content]	Put something to device clipboard"
+	echo "	-a "
+	echo "	-activity   		Get top activity name"
+	echo "	-i 	    		"
+	echo "	-info   	    	Get all device info"
+	echo "	-i u   			Get UserId"
+	echo "	-i d   			Get DeviceId"
+	echo "	-i v   			Get versionCode"
+	echo "	-i g   			Get GitSHA"
+}
+
+if [ ! $1 ]; then
+	help
+else
+	case $1 in
+		"-h") help
+		;;
+		"-clip")  getClipboard
+		;;
+		"-c")  getClipboard
+		;;
+		"-putclip")  putClipboard $2
+		;;
+		"-pc")  putClipboard $2
+		;;
+		"-activity")  getTopActivity
+		;;
+		"-a")  getTopActivity
+		;;
+		"-info")  getInfo $2
+		;;
+		"-i")  getInfo $2
+		;;
+		*)  echo "command { $1 } not found"
+		;;
+	esac
+fi
+
+
+
+
+
+
+
